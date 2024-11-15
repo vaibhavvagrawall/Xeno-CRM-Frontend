@@ -1,23 +1,30 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import { Button } from "@/components/ui/button"
-function App() {
-  const [count, setCount] = useState(0)
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import './App.css';
+import Home from './Home';
+import Header from './pages/Header';
+import Dashboard from "./pages/Dashboard";
+import CustomerList from './pages/Customer/CustomerList';
+import AddCustomer from './pages/Customer/AddCustomer';
+import PageNotFound from "./pages/PageNotFound"
+import OrderList from './pages/Order/OrderList';
+import AddOrder from './pages/Order/AddOrder';
 
+const App = () => {
   return (
-    <div>
-      <h1 className="text-3xl font-bold underline">
-        Hello world!
-      </h1>
-      <div>
-        <Button className = "bg-yellow-300">Click me</Button>
-      </div>
-    </div>
+    <Router>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/customers" element={<CustomerList />} />
+        <Route path="/create-customer" element={<AddCustomer />} />
+        <Route path="/orders" element={<OrderList />} />
+        <Route path="/create-order" element={<AddOrder />} />
+        <Route path = "*" element = {<PageNotFound />} />
+      </Routes>
+    </Router>
+  );
+};
 
-    
-  )
-}
-
-export default App
+export default App;
