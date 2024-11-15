@@ -30,25 +30,16 @@ function OrderList(){
             setLoading(false);
         }
     };
-    
 
     useEffect(() => {
         fetchOrders();
     }, []);
 
-    if (loading) {
-        return <div className="text-center py-8">Loading...</div>;
-    }
-
-    if (error) {
-        return <div className="text-center text-red-600 py-8">Error: {error}</div>;
-    }
-
     return (
         <div className="container mx-auto px-6 mt-16 py-8">
             <div className="flex justify-between items-center mb-8">
                 <h1 className="text-4xl font-bold text-gray-800">Order List</h1>
-                <Link to="/create-order">
+                <Link to="/orders/create">
                     <Button className="bg-red-600 text-white px-6 py-3 font-semibold rounded-lg shadow-md hover:bg-red-700">
                         Add Order
                     </Button>
@@ -70,7 +61,7 @@ function OrderList(){
                         {orders.map((order) => (
                             <tr key={order._id} className="border-t border-gray-200">
                                 <td className="px-6 py-4 text-gray-700">{order.name}</td>
-                                <td className="px-6 py-4 text-gray-700">{order.email}</td>
+                                <td className="px-6 py-4 text-gray-700">{order.amount}</td>
                                 <td className="px-6 py-4 text-gray-700">{new Date(order.orderDate).toLocaleDateString()}</td>
                                 <td className="px-6 py-4 text-gray-700">{order.customerId?.name}</td>
                                 <td className="px-6 py-4 text-gray-700">{order.customerId?.email}</td>

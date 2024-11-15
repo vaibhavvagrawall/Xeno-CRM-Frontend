@@ -31,24 +31,15 @@ function CustomerList(){
         }
     };
     
-
     useEffect(() => {
         fetchCustomers();
     }, []);
 
-    if (loading) {
-        return <div className="text-center py-8">Loading...</div>;
-    }
-
-    if (error) {
-        return <div className="text-center text-red-600 py-8">Error: {error}</div>;
-    }
-
     return (
-        <div className="container mx-auto px-6 mt-16 py-8"> {/* Increased margin-top */}
+        <div className="container mx-auto px-6 mt-16 py-8">
             <div className="flex justify-between items-center mb-8">
                 <h1 className="text-4xl font-bold text-gray-800">Customer List</h1>
-                <Link to="/create-customer">
+                <Link to="/customers/create">
                     <Button className="bg-red-600 text-white px-6 py-3 font-semibold rounded-lg shadow-md hover:bg-red-700">
                         Add Customer
                     </Button>
