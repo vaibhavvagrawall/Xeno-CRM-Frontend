@@ -74,51 +74,45 @@ function CustomerList() {
                 </Link>
             </div>
 
-            {loading ? (
-                <p>Loading...</p>
-            ) : error ? (
-                <p className="text-red-600">{error}</p>
-            ) : (
-                <div className="overflow-x-auto rounded-lg shadow-lg">
-                    <table className="min-w-full bg-white border-collapse">
-                        <thead className="bg-gray-100">
-                            <tr>
-                                <th className="px-6 py-4 text-left text-lg font-medium text-gray-600">Name</th>
-                                <th className="px-6 py-4 text-left text-lg font-medium text-gray-600">Email</th>
-                                <th className="px-6 py-4 text-left text-lg font-medium text-gray-600">Total Spending</th>
-                                <th className="px-6 py-4 text-left text-lg font-medium text-gray-600">Visit Count</th>
-                                <th className="px-6 py-4 text-left text-lg font-medium text-gray-600">Last Visit</th>
-                                <th className="px-6 py-4 text-left text-lg font-medium text-gray-600">Actions</th>
+            <div className="overflow-x-auto rounded-lg shadow-lg">
+                <table className="min-w-full bg-white border-collapse">
+                    <thead className="bg-gray-100">
+                        <tr>
+                            <th className="px-6 py-4 text-left text-lg font-medium text-gray-600">Name</th>
+                            <th className="px-6 py-4 text-left text-lg font-medium text-gray-600">Email</th>
+                            <th className="px-6 py-4 text-left text-lg font-medium text-gray-600">Total Spending</th>
+                            <th className="px-6 py-4 text-left text-lg font-medium text-gray-600">Visit Count</th>
+                            <th className="px-6 py-4 text-left text-lg font-medium text-gray-600">Last Visit</th>
+                            <th className="px-6 py-4 text-left text-lg font-medium text-gray-600">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {customers.map((customer) => (
+                            <tr key={customer._id} className="border-t border-gray-200">
+                                <td className="px-6 py-4 text-gray-700">{customer.name}</td>
+                                <td className="px-6 py-4 text-gray-700">{customer.email}</td>
+                                <td className="px-6 py-4 text-gray-700">${customer.totalSpending}</td>
+                                <td className="px-6 py-4 text-gray-700">{customer.visitCount}</td>
+                                <td className="px-6 py-4 text-gray-700">{new Date(customer.lastVisit).toLocaleDateString()}</td>
+                                <td className="px-6 py-4 flex space-x-4">
+                                    <Button
+                                        className="bg-red-600 text-white px-6 py-3 font-semibold rounded-lg shadow-md hover:bg-red-700"
+                                        onClick={() => handleEdit(customer._id)}
+                                    >
+                                        Edit
+                                    </Button>
+                                    <Button
+                                        className="bg-red-600 text-white px-6 py-3 font-semibold rounded-lg shadow-md hover:bg-red-700"
+                                        onClick={() => handleDelete(customer._id)}
+                                    >
+                                        Delete
+                                    </Button>
+                                </td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            {customers.map((customer) => (
-                                <tr key={customer._id} className="border-t border-gray-200">
-                                    <td className="px-6 py-4 text-gray-700">{customer.name}</td>
-                                    <td className="px-6 py-4 text-gray-700">{customer.email}</td>
-                                    <td className="px-6 py-4 text-gray-700">${customer.totalSpending}</td>
-                                    <td className="px-6 py-4 text-gray-700">{customer.visitCount}</td>
-                                    <td className="px-6 py-4 text-gray-700">{new Date(customer.lastVisit).toLocaleDateString()}</td>
-                                    <td className="px-6 py-4 flex space-x-4">
-                                        <Button
-                                            className="bg-red-600 text-white px-6 py-3 font-semibold rounded-lg shadow-md hover:bg-red-700"
-                                            onClick={() => handleEdit(customer._id)}
-                                        >
-                                            Edit
-                                        </Button>
-                                        <Button
-                                            className="bg-red-600 text-white px-6 py-3 font-semibold rounded-lg shadow-md hover:bg-red-700"
-                                            onClick={() => handleDelete(customer._id)}
-                                        >
-                                            Delete
-                                        </Button>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
-            )}
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 }

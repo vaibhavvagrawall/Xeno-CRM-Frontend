@@ -14,8 +14,11 @@ import AudienceList from './pages/Audience/AudienceList';
 import AddAudience from './pages/Audience/AddAudience';
 import AudienceView from './pages/Audience/AudienceView';
 import CampaignHistory from "./pages/Campaign/CampaignHistory";
+import CampaignView from "./pages/Campaign/CampaignView";
 import AddCampaign from './pages/Campaign/AddCampaign';
 import PageNotFound from "./pages/PageNotFound";
+import MessagesList from './pages/Message/MessagesList';
+import AddMessage from './pages/Message/AddMessage';
 
 const App = () => {
   return (
@@ -35,8 +38,10 @@ const App = () => {
         <Route path="/audiences/:id" element = {<AudienceView />} />
         <Route path="/campaigns" element = {<CampaignHistory />} />
         <Route path="/campaigns/create" element = {<AddCampaign />} />
+        <Route path="/campaigns/:id" element = {<CampaignView />} />
+        <Route path="/messages" element = {<MessagesList />} />
+        <Route path="/messages/send" element = {<AddMessage />} />
         <Route path="*" element = {<PageNotFound />} />
-        
       </Routes>
     </Router>
   );
