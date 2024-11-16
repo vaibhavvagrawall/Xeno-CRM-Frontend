@@ -76,6 +76,9 @@ const Header = () => {
             <Link to="/audiences" className="text-red-600 hover:underline">
               Audiences
             </Link>
+            <Link to="/campaigns" className="text-red-600 hover:underline">
+              Campaigns
+            </Link>
           </>
         )}
       </nav>
