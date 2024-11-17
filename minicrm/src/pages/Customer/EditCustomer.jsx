@@ -17,7 +17,7 @@ function EditCustomer() {
     const fetchCustomer = async () => {
         try {
             setLoading(true);
-            const response = await fetch(`http://localhost:5000/api/customers/${id}`, {
+            const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/customers/${id}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -55,7 +55,7 @@ function EditCustomer() {
         };
 
         try {
-            const response = await fetch(`http://localhost:5000/api/customers/edit/${id}`, {
+            const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/customers/edit/${id}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",

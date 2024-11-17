@@ -14,7 +14,7 @@ function AddCampaign() {
 
     const fetchAudiences = async () => {
         try {
-            const response = await fetch("http://localhost:5000/api/audiences/list", {
+            const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/audiences/list`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -49,7 +49,7 @@ function AddCampaign() {
         };
 
         try {
-            const response = await fetch("http://localhost:5000/api/campaigns", {
+            const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/campaigns`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

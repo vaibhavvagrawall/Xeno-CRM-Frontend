@@ -10,7 +10,7 @@ function OrderList() {
 
     const fetchOrders = async () => {
         try {
-            const response = await fetch("http://localhost:5000/api/orders/list", {
+            const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/orders/list`, {
                 method: "GET",
                 headers: { "Content-Type": "application/json" },
                 credentials: "include",
@@ -32,7 +32,7 @@ function OrderList() {
     const handleDelete = async (id) => {
         if (window.confirm("Are you sure you want to delete this order?")) {
             try {
-                const response = await fetch(`http://localhost:5000/api/orders/delete/${id}`, {
+                const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/orders/delete/${id}`, {
                     method: "DELETE",
                     credentials: "include",
                 });

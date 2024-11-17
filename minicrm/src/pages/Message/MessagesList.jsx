@@ -9,7 +9,7 @@ function MessagesList() {
 
     const fetchMessages = async () => {
         try {
-            const response = await fetch("http://localhost:5000/api/messages", {
+            const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/messages`, {
                 method: "GET",
                 headers: { "Content-Type": "application/json" },
                 credentials: "include",

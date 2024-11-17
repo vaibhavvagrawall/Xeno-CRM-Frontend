@@ -34,7 +34,7 @@ function AddAudience() {
         };
 
         try {
-            const response = await fetch("http://localhost:5000/api/audiences", {
+            const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/audiences`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

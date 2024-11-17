@@ -9,7 +9,7 @@ function CampaignView() {
 
     const fetchCampaignDetails = async () => {
         try {
-            const response = await fetch(`http://localhost:5000/api/campaigns/${id}/details`, {
+            const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/campaigns/${id}/details`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',

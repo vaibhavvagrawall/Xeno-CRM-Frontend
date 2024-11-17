@@ -9,7 +9,7 @@ function CampaignHistory() {
 
     const fetchCampaigns = async () => {
         try {
-            const response = await fetch("http://localhost:5000/api/campaigns/history", {
+            const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/campaigns/history`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",

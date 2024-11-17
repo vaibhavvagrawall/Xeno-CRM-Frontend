@@ -11,7 +11,7 @@ function CustomerList() {
 
     const fetchCustomers = async () => {
         try {
-            const response = await fetch("http://localhost:5000/api/customers/list", {
+            const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/customers/list`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -36,7 +36,7 @@ function CustomerList() {
     const handleDelete = async (customerId) => {
         if (window.confirm("Are you sure you want to delete this customer?")) {
             try {
-                const response = await fetch(`http://localhost:5000/api/customers/delete/${customerId}`, {
+                const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/customers/delete/${customerId}`, {
                     method: "DELETE",
                     headers: {
                         "Content-Type": "application/json",

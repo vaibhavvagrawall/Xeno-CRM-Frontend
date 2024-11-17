@@ -11,7 +11,7 @@ function AudienceList() {
     
     const fetchAudiences = async () => {
         try {
-            const response = await fetch("http://localhost:5000/api/audiences/list", {
+            const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/audiences/list`, {
                 method: 'GET',
                 headers: {
                     "Content-Type": "application/json",
@@ -35,7 +35,7 @@ function AudienceList() {
     const handleDelete = async (audienceId) => {
         if (window.confirm("Are you sure you want to delete this audience?")) {
             try {
-                const response = await fetch(`http://localhost:5000/api/audiences/delete/${audienceId}`, {
+                const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/audiences/delete/${audienceId}`, {
                     method: "DELETE",
                     headers: {
                         "Content-Type": "application/json",

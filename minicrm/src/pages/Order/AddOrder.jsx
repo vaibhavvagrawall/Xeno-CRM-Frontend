@@ -15,7 +15,7 @@ function AddOrder() {
 
     const fetchCustomers = async () => {
         try {
-            const response = await fetch("http://localhost:5000/api/customers/list", {
+            const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/customers/list`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -51,7 +51,7 @@ function AddOrder() {
         };
 
         try {
-            const response = await fetch("http://localhost:5000/api/orders", {
+            const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/orders`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
