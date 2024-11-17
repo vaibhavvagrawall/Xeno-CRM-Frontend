@@ -83,7 +83,7 @@ function OrderList() {
                         {orders.map((order) => (
                             <tr key={order._id} className="border-t border-gray-200">
                                 <td className="px-6 py-4 text-gray-700">{order.name}</td>
-                                <td className="px-6 py-4 text-gray-700">${order.amount}</td>
+                                <td className="px-6 py-4 text-gray-700">INR {order.amount}</td>
                                 <td className="px-6 py-4 text-gray-700">{new Date(order.orderDate).toLocaleDateString()}</td>
                                 <td className="px-6 py-4 text-gray-700">{order.customerId?.name}</td>
                                 <td className="px-6 py-4 flex space-x-4">

@@ -1,11 +1,13 @@
 import React, {useState, useEffect} from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from "../../components/ui/button";
 
 function AudienceList() {
     const [audiences, setAudiences] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+
+    const navigate = useNavigate();
     
     const fetchAudiences = async () => {
         try {
@@ -24,11 +26,36 @@ function AudienceList() {
             const data = await response.json();
             setAudiences(data);
         } catch (error) {
-            console.error("Error fetching audiences:", error);
             setError(error.message);
         } finally {
             setLoading(false);
         }
+    };
+
+    const handleDelete = async (audienceId) => {
+        if (window.confirm("Are you sure you want to delete this audience?")) {
+            try {
+                const response = await fetch(`http://localhost:5000/api/audiences/delete/${audienceId}`, {
+                    method: "DELETE",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    credentials: "include",
+                });
+
+                if (!response.ok) {
+                    throw new Error("Failed to delete audience");
+                }
+
+                setAudiences(audiences.filter((audience) => audience._id !== audienceId));
+            } catch (error) {
+                alert(`Error deleting audience: ${error.message}`);
+            }
+        }
+    };
+
+    const handleEdit = (audienceId) => {
+        navigate(`/audiences/edit/${audienceId}`);
     };
 
     useEffect(() =>{
@@ -52,7 +79,8 @@ function AudienceList() {
                             <th className="px-6 py-4 text-left text-lg font-medium text-gray-600">Name</th>
                             <th className="px-6 py-4 text-left text-lg font-medium text-gray-600">Conditions</th>
                             <th className="px-6 py-4 text-left text-lg font-medium text-gray-600">Size</th>
-                            <th className="px-6 py-4 text-left text-lg font-medium text-gray-600"></th>
+                            <th className="px-6 py-4 text-left text-lg font-medium text-gray-600">Details</th>
+                            <th className="px-6 py-4 text-left text-lg font-medium text-gray-600">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -69,8 +97,22 @@ function AudienceList() {
                                 <td className="px-6 py-4 text-gray-700">{audience.size}</td>
                                 <td className="px-6 py-4 text-gray-700">
                                     <Link to={`/audiences/${audience._id}`}>
-                                        <Button variant="outlined">View Details</Button>
+                                        <Button variant="outlined" className="text-blue-600 hover:underline">View Details</Button>
                                     </Link>
+                                </td>
+                                <td className="px-6 py-4 flex space-x-4">
+                                    <Button
+                                        className="bg-red-600 text-white px-6 py-3 font-semibold rounded-lg shadow-md hover:bg-red-700"
+                                        onClick={() => handleEdit(audience._id)}
+                                    >
+                                        Edit
+                                    </Button>
+                                    <Button
+                                        className="bg-red-600 text-white px-6 py-3 font-semibold rounded-lg shadow-md hover:bg-red-700"
+                                        onClick={() => handleDelete(audience._id)}
+                                    >
+                                        Delete
+                                    </Button>
                                 </td>
                             </tr>
                         ))}

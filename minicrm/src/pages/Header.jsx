@@ -41,6 +41,10 @@ const Header = () => {
   };
 
   const handleLogout = async () => {
+    const confirmLogout = window.confirm("Are you sure you want to log out?");
+    if (!confirmLogout) {
+      return;
+    }
     try {
       await fetch(`${import.meta.env.VITE_SERVER_URL}/logout`, {
         method: 'GET',
@@ -52,8 +56,6 @@ const Header = () => {
       throw new Error("Error Logging Out");
     }
   };
-
-  if (loading) return null;
 
   return (
     <header className="fixed top-0 left-0 right-0 bg-slate-200 h-[60px] shadow-lg flex items-center justify-between px-5 z-50">
@@ -88,11 +90,11 @@ const Header = () => {
 
       <div>
         {isAuthenticated ? (
-          <Button variant="solid" className="text-white font-semibold bg-red-600" onClick={handleLogout}>
+          <Button variant="solid" className="text-white font-semibold bg-red-600 hover:bg-red-800" onClick={handleLogout}>
             Logout
           </Button>
         ) : (
-          <Button variant="solid" className="text-white font-semibold bg-red-600" onClick={handleLogin}>
+          <Button variant="solid" className="text-white font-semibold bg-red-600 hover:bg-red-800" onClick={handleLogin}>
             Login
           </Button>
         )}

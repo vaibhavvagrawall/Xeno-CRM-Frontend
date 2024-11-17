@@ -1,13 +1,39 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "../../components/ui/button";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-function AddAudience() {
+function EditAudience() {
+    const { id } = useParams();
     const [name, setName] = useState("");
     const [conditions, setConditions] = useState([{ field: "", operator: "", value: "" }]);
     const [loading, setLoading] = useState(false);
-
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const fetchAudience = async () => {
+            try {
+                const response = await fetch(`http://localhost:5000/api/audiences/${id}`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    credentials: "include",
+                });
+
+                if (!response.ok) {
+                    throw new Error("Failed to fetch audience details");
+                }
+
+                const data = await response.json();
+                setName(data.name);
+                setConditions(data.conditions);
+            } catch (error) {
+                alert(error.message);
+            }
+        };
+
+        fetchAudience();
+    }, [id]);
 
     const handleAddCondition = () => {
         setConditions([...conditions, { field: "", operator: "", value: "" }]);
@@ -34,8 +60,8 @@ function AddAudience() {
         };
 
         try {
-            const response = await fetch("http://localhost:5000/api/audiences", {
-                method: "POST",
+            const response = await fetch(`http://localhost:5000/api/audiences/edit/${id}`, {
+                method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
                 },
@@ -44,7 +70,7 @@ function AddAudience() {
             });
 
             if (!response.ok) {
-                throw new Error("Failed to create audience");
+                throw new Error("Failed to update audience");
             }
 
             navigate("/audiences");
@@ -58,7 +84,7 @@ function AddAudience() {
     return (
         <div className="container mx-auto px-6 mt-16 py-8">
             <div className="flex justify-between items-center mb-8">
-                <h1 className="text-4xl font-bold text-gray-800">Create New Audience</h1>
+                <h1 className="text-4xl font-bold text-gray-800">Edit Audience</h1>
             </div>
 
             <div className="mb-6 text-gray-600">
@@ -138,7 +164,7 @@ function AddAudience() {
                         className="bg-red-600 text-white font-semibold px-6 py-3 rounded-lg shadow-md"
                         disabled={loading}
                     >
-                        {loading ? "Creating..." : "Create Audience"}
+                        {loading ? "Updating..." : "Update Audience"}
                     </Button>
                 </div>
             </form>
@@ -146,4 +172,4 @@ function AddAudience() {
     );
 }
 
-export default AddAudience;
+export default EditAudience;

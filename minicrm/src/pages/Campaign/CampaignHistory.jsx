@@ -45,40 +45,38 @@ function CampaignHistory() {
                 </Link>
             </div>
 
-            {loading ? (
-                <div>Loading...</div>
-            ) : error ? (
-                <div className="text-red-600">{error}</div>
-            ) : (
-                <div className="overflow-x-auto rounded-lg shadow-lg">
-                    <table className="min-w-full bg-white border-collapse">
-                        <thead className="bg-gray-100">
-                            <tr>
-                                <th className="px-6 py-4 text-left text-lg font-medium text-gray-600">Campaign Name</th>
-                                <th className="px-6 py-4 text-left text-lg font-medium text-gray-600">Message</th>
-                                <th className="px-6 py-4 text-left text-lg font-medium text-gray-600">Audience</th>
-                                <th className="px-6 py-4 text-left text-lg font-medium text-gray-600">Date</th>
-                                <th className="px-6 py-4 text-left text-lg font-medium text-gray-600"></th>
+            <div className="overflow-x-auto rounded-lg shadow-lg">
+                <table className="min-w-full bg-white border-collapse">
+                    <thead className="bg-gray-100">
+                        <tr>
+                            <th className="px-6 py-4 text-left text-lg font-medium text-gray-600">Campaign Name</th>
+                            <th className="px-6 py-4 text-left text-lg font-medium text-gray-600">Message</th>
+                            <th className="px-6 py-4 text-left text-lg font-medium text-gray-600">Audience</th>
+                            <th className="px-6 py-4 text-left text-lg font-medium text-gray-600">Date</th>
+                            <th className="px-6 py-4 text-left text-lg font-medium text-gray-600">Sent</th>
+                            <th className="px-6 py-4 text-left text-lg font-medium text-gray-600">Failed</th>
+                            <th className="px-6 py-4 text-left text-lg font-medium text-gray-600"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {campaigns.map((campaign) => (
+                            <tr key={campaign._id} className="border-t border-gray-200">
+                                <td className="px-6 py-4 text-gray-700">{campaign.name}</td>
+                                <td className="px-6 py-4 text-gray-700">{campaign.message}</td>
+                                <td className="px-6 py-4 text-gray-700">
+                                    {campaign.audienceId?.name} (Size: {campaign.audienceId?.size})
+                                </td>
+                                <td className="px-6 py-4 text-gray-700">{new Date(campaign.createdAt).toLocaleDateString()}</td>
+                                <td className="px-6 py-4 text-gray-700">{campaign.sentCount || 0}</td>
+                                <td className="px-6 py-4 text-gray-700">{campaign.failedCount || 0}</td>
+                                <td className="px-6 py-4">
+                                    <Link to={`/campaigns/${campaign._id}`} className="text-blue-600 hover:underline">View Details</Link>
+                                </td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            {campaigns.map((campaign) => (
-                                <tr key={campaign._id} className="border-t border-gray-200">
-                                    <td className="px-6 py-4 text-gray-700">{campaign.name}</td>
-                                    <td className="px-6 py-4 text-gray-700">{campaign.message}</td>
-                                    <td className="px-6 py-4 text-gray-700">
-                                        {campaign.audienceId?.name} (Size: {campaign.audienceId?.size})
-                                    </td>
-                                    <td className="px-6 py-4 text-gray-700">{new Date(campaign.createdAt).toLocaleDateString()}</td>
-                                    <td className="px-6 py-4">
-                                        <Link to={`/campaigns/${campaign._id}`} className="text-blue-600 hover:underline">View Details</Link>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
-            )}
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 }

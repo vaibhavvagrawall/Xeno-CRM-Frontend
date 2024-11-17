@@ -7,26 +7,33 @@ const Dashboard = () => {
     audiences: 0,
     campaigns: 0,
     messages: {
-      sent: 0,
-      failed: 0
+        sent: 0,
+        failed: 0,
     }
   });
 
   const fetchDashboardData = async () => {
     try {
-        const customerRes = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/dashboard/total/customers`);
-        const orderRes = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/dashboard/total/orders`);
-        const audienceRes = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/dashboard/total/audiences`);
-        const campaignRes = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/dashboard/total/campaigns`);
-        const messageRes = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/dashboard/total/messages`);
-        const messageStatusRes = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/dashboard/total/messages/sent`);
-
-        const customers = await customerRes.json();
-        const orders = await orderRes.json();
-        const audiences = await audienceRes.json();
-        const campaigns = await campaignRes.json();
-        const messages = await messageRes.json();
-        const sentMessages = await messageStatusRes.json();
+        const customerTotal = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/dashboard/total/customers`,{
+            credentials: 'include'
+        });
+        const orderTotal = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/dashboard/total/orders`,{
+            credentials: 'include'
+        });
+        const audienceTotal = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/dashboard/total/audiences`,{
+            credentials: 'include'
+        });
+        const campaignTotal = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/dashboard/total/campaigns`, { 
+            credentials: 'include' 
+        });
+        const messageTotal = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/dashboard/total/messages`, { 
+            credentials: 'include' 
+        });
+        const customers = await customerTotal.json();
+        const orders = await orderTotal.json();
+        const audiences = await audienceTotal.json();
+        const campaigns = await campaignTotal.json();
+        const messages = await messageTotal.json();
 
         setTotals({
             customers: customers.total,
@@ -34,7 +41,7 @@ const Dashboard = () => {
             audiences: audiences.total,
             campaigns: campaigns.total,
             messages: {
-                sent: sentMessages.sent,
+                sent: messages.sent,
                 failed: messages.failed
             }
         });

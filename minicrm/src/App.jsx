@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
 import Home from './Home';
 import Header from './pages/Header';
-import Dashboard from "./pages/Dashboard";
 import CustomerList from './pages/Customer/CustomerList';
 import AddCustomer from './pages/Customer/AddCustomer';
 import EditCustomer from './pages/Customer/EditCustomer';
@@ -12,13 +11,15 @@ import AddOrder from './pages/Order/AddOrder';
 import EditOrder from './pages/Order/EditOrder';
 import AudienceList from './pages/Audience/AudienceList';
 import AddAudience from './pages/Audience/AddAudience';
+import EditAudience from './pages/Audience/EditAudience';
 import AudienceView from './pages/Audience/AudienceView';
 import CampaignHistory from "./pages/Campaign/CampaignHistory";
 import CampaignView from "./pages/Campaign/CampaignView";
 import AddCampaign from './pages/Campaign/AddCampaign';
-import PageNotFound from "./pages/PageNotFound";
 import MessagesList from './pages/Message/MessagesList';
 import AddMessage from './pages/Message/AddMessage';
+import Dashboard from "./pages/Dashboard";
+import PageNotFound from "./pages/PageNotFound";
 
 const App = () => {
   return (
@@ -35,6 +36,7 @@ const App = () => {
         <Route path="/orders/edit/:id" element={<EditOrder />} />
         <Route path="/audiences" element = {<AudienceList />} />
         <Route path="/audiences/create" element = {<AddAudience />} />
+        <Route path="/audiences/edit/:id" element={<EditAudience />} />
         <Route path="/audiences/:id" element = {<AudienceView />} />
         <Route path="/campaigns" element = {<CampaignHistory />} />
         <Route path="/campaigns/create" element = {<AddCampaign />} />

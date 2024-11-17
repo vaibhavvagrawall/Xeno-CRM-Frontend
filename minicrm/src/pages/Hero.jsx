@@ -13,7 +13,7 @@ function Hero() {
           <h1 className="text-4xl font-semibold mb-4">Welcome to Your CRM & Campaign Management</h1>
           <p className="text-lg mb-8">Streamline your campaigns, manage audiences, and track your success all in one place.</p>
           <div className="flex justify-center gap-6">
-            <Button onClick={handleGetStarted} className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-lg shadow-md">Get Started</Button>
+            <Button onClick={handleGetStarted} className="bg-red-600 hover:bg-red-800 text-white px-6 py-3 rounded-lg shadow-md">Get Started</Button>
           </div>
         </div>
       </section>

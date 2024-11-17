@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 function AddCustomer() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
-    const [totalSpending, setTotalSpending] = useState("");
+    const [totalSpending, setTotalSpending] = useState(0);
     const [visitCount, setVisitCount] = useState("");
     const [lastVisit, setLastVisit] = useState("");
     const [loading, setLoading] = useState(false);
@@ -91,7 +91,7 @@ function AddCustomer() {
                         value={totalSpending}
                         onChange={(e) => setTotalSpending(e.target.value)}
                         className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600"
-                        required
+                        disabled
                     />
                 </div>
 

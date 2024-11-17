@@ -8,6 +8,7 @@ function EditOrder() {
 
     const [name, setName] = useState("");
     const [amount, setAmount] = useState("");
+    const [orderDate, setOrderDate] = useState("");
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
@@ -27,8 +28,10 @@ function EditOrder() {
             }
 
             const order = await response.json();
+
             setName(order.name);
             setAmount(order.amount);
+            setOrderDate(order.orderDate.slice(0, 10));
         } catch (err) {
             setError(err.message);
         } finally {
@@ -40,7 +43,11 @@ function EditOrder() {
         e.preventDefault();
         setLoading(true);
 
-        const updatedData = { name, amount };
+        const updatedData = {
+            name,
+            amount,
+            orderDate,
+        };
 
         try {
             const response = await fetch(`http://localhost:5000/api/orders/edit/${id}`, {
@@ -55,8 +62,9 @@ function EditOrder() {
             if (!response.ok) {
                 throw new Error("Failed to update order");
             }
-            navigate("/orders");
+
             alert("Order updated successfully!");
+            navigate("/orders");
         } catch (err) {
             alert(`Error: ${err.message}`);
         } finally {
@@ -76,7 +84,9 @@ function EditOrder() {
 
             <form onSubmit={handleUpdate} className="bg-white p-8 shadow-lg rounded-lg">
                 <div className="mb-6">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">Order Name</label>
+                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
+                        Order Name
+                    </label>
                     <input
                         type="text"
                         id="name"
@@ -88,12 +98,28 @@ function EditOrder() {
                 </div>
 
                 <div className="mb-6">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="amount">Amount</label>
+                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="amount">
+                        Amount
+                    </label>
                     <input
                         type="number"
                         id="amount"
                         value={amount}
                         onChange={(e) => setAmount(e.target.value)}
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600"
+                        required
+                    />
+                </div>
+
+                <div className="mb-6">
+                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="orderDate">
+                        Order Date
+                    </label>
+                    <input
+                        type="date"
+                        id="orderDate"
+                        value={orderDate}
+                        onChange={(e) => setOrderDate(e.target.value)}
                         className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600"
                         required
                     />

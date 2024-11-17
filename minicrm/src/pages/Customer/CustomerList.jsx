@@ -91,7 +91,7 @@ function CustomerList() {
                             <tr key={customer._id} className="border-t border-gray-200">
                                 <td className="px-6 py-4 text-gray-700">{customer.name}</td>
                                 <td className="px-6 py-4 text-gray-700">{customer.email}</td>
-                                <td className="px-6 py-4 text-gray-700">${customer.totalSpending}</td>
+                                <td className="px-6 py-4 text-gray-700">INR {customer.totalSpending}</td>
                                 <td className="px-6 py-4 text-gray-700">{customer.visitCount}</td>
                                 <td className="px-6 py-4 text-gray-700">{new Date(customer.lastVisit).toLocaleDateString()}</td>
                                 <td className="px-6 py-4 flex space-x-4">

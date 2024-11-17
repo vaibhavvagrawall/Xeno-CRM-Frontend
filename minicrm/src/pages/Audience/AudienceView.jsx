@@ -24,7 +24,7 @@ function AudienceView() {
 
             const data = await response.json();
             setAudience(data);
-            setCustomers(data.customers || []); // Include customers from the response
+            setCustomers(data.customers || []);
         } catch (error) {
             setError(error.message);
         } finally {
@@ -36,9 +36,7 @@ function AudienceView() {
         fetchAudience();
     }, [id]);
 
-    if (loading) return <p>Loading...</p>;
-
-    if (error) return <p className="text-red-500">{error}</p>;
+    if(loading){return <div></div>}
 
     return (
         <div className="container mx-auto px-6 mt-16 py-8">
@@ -55,32 +53,30 @@ function AudienceView() {
             </ul>
 
             <h2 className="text-2xl font-semibold text-gray-700 mb-4">Customers:</h2>
-            {customers.length > 0 ? (
-                <div className="overflow-x-auto rounded-lg shadow-lg">
-                    <table className="min-w-full bg-white border-collapse">
-                        <thead className="bg-gray-100">
-                            <tr>
-                                <th className="px-6 py-4 text-left text-lg font-medium text-gray-600">Name</th>
-                                <th className="px-6 py-4 text-left text-lg font-medium text-gray-600">Email</th>
-                                <th className="px-6 py-4 text-left text-lg font-medium text-gray-600">Total Spending</th>
-                                <th className="px-6 py-4 text-left text-lg font-medium text-gray-600">Visit Count</th>
+            <div className="overflow-x-auto rounded-lg shadow-lg">
+                <table className="min-w-full bg-white border-collapse">
+                    <thead className="bg-gray-100">
+                        <tr>
+                            <th className="px-6 py-4 text-left text-lg font-medium text-gray-600">Name</th>
+                            <th className="px-6 py-4 text-left text-lg font-medium text-gray-600">Email</th>
+                            <th className="px-6 py-4 text-left text-lg font-medium text-gray-600">Total Spending</th>
+                            <th className="px-6 py-4 text-left text-lg font-medium text-gray-600">Visit Count</th>
+                            <th className="px-6 py-4 text-left text-lg font-medium text-gray-600">Last Visit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {customers.map((customer) => (
+                            <tr key={customer._id} className="border-t border-gray-200">
+                                <td className="px-6 py-4 text-gray-700">{customer.name}</td>
+                                <td className="px-6 py-4 text-gray-700">{customer.email}</td>
+                                <td className="px-6 py-4 text-gray-700">{customer.totalSpending}</td>
+                                <td className="px-6 py-4 text-gray-700">{customer.visitCount}</td>
+                                <td className="px-6 py-4 text-gray-700">{customer.lastVisit}</td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            {customers.map((customer) => (
-                                <tr key={customer._id} className="border-t border-gray-200">
-                                    <td className="px-6 py-4 text-gray-700">{customer.name}</td>
-                                    <td className="px-6 py-4 text-gray-700">{customer.email}</td>
-                                    <td className="px-6 py-4 text-gray-700">{customer.totalSpending}</td>
-                                    <td className="px-6 py-4 text-gray-700">{customer.visitCount}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
-            ) : (
-                <p className="text-gray-600">No customers found for this audience.</p>
-            )}
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 }
